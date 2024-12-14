@@ -9,34 +9,58 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
+    //SYSYEM
     @Environment(\.modelContext) private var modelContext
+    
+    //DATA
     @Query private var items: [Item]
-
+    var charactersViewModel = CharactersViewModel()
+    
+    //VIEW
+    private let columns : [GridItem] = [
+        GridItem(.fixed(200), spacing: 1),
+        GridItem(.fixed(200), spacing: 1),
+    ]
+    
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
+        
+        ZStack{
+            VStack{
+                NavigationStack{
+                    ScrollView {
+                        
+                        LazyVGrid(columns: columns,spacing: 20) {
+                            ForEach(charactersViewModel.characters) { character in
+                                NavigationLink ( destination: CreateCharachterView() ) {
+                                    CharacterCardView(
+                                        characterName: character.name,
+                                        iconString: character.icon
+                                    )
+                                }
+                            }
+                            .onDelete(perform: deleteItems)
+                            
+                        }
+                        
+                    }.navigationTitle(Text("Character List"))
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            NavigationLink(destination: CreateCharachterView()) {
+                                ButtonView(action: addItem,icon: "plus")
+                            }
+                        }
                     }
+                    
                 }
-                .onDelete(perform: deleteItems)
+                    
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-        } detail: {
-            Text("Select an item")
+            
         }
+        
+      
+        
+
+        
     }
 
     private func addItem() {
