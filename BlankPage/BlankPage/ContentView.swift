@@ -31,7 +31,8 @@ struct ContentView: View {
                         
                         LazyVGrid(columns: columns,spacing: 20) {
                             ForEach(charactersViewModel.characters) { character in
-                                NavigationLink ( destination: CreateCharachterView() ) {
+                                NavigationLink (
+                                    destination: CreateCharachterView(addCharacter: addCharacter) ) {
                                     CharacterCardView(
                                         characterName: character.name,
                                         iconString: character.icon
@@ -45,7 +46,7 @@ struct ContentView: View {
                     }.navigationTitle(Text("Character List"))
                     .toolbar {
                         ToolbarItem(placement: .navigationBarTrailing) {
-                            NavigationLink(destination: CreateCharachterView()) {
+                            NavigationLink(destination: CreateCharachterView(addCharacter: addCharacter)) {
                                 ButtonView(action: addItem,icon: "plus")
                             }
                         }
@@ -63,6 +64,11 @@ struct ContentView: View {
         
     }
 
+    private func addCharacter( newCharacter : CharacterModel ) -> Void{
+        withAnimation {
+            modelContext.insert(newCharacter)
+        }
+    }
     private func addItem() {
         withAnimation {
             let newItem = Item(timestamp: Date())

@@ -11,17 +11,19 @@ import Foundation
 @Model
 class CharacterModel : Identifiable{
     
-    var id: UUID = UUID()
-    var icon: String
-    var name: String
-    var age : Int
+    var id   : UUID = UUID()
+    var icon : String
+    var name : String
+    var age  : Int
     
     var descriptionCharacter: String
+    var particularSigns : String
     
-    init(name: String, age: Int = 0, description: String = "", icon: String = "🧙🏽‍♂️") {
+    init(name: String, age: Int = 0, description: String = "", icon: String = "🧙🏽‍♂️", particularSigns: String = "") {
         self.name = name
         self.age = age
         self.descriptionCharacter = description
         self.icon = icon
+        self.particularSigns = particularSigns
     }
 }
