@@ -10,82 +10,70 @@ import SwiftData
 
 struct ContentView: View {
     //SYSYEM
-    @Environment(\.modelContext) private var modelContext
-    
+    @Environment(\.modelContext) private var context
     //DATA
-    @Query private var items: [Item]
-    var charactersViewModel = CharactersViewModel()
+    @Query private var listCharacters : [CharacterModel]
     
     //VIEW
     private let columns : [GridItem] = [
-        GridItem(.fixed(200), spacing: 1),
-        GridItem(.fixed(200), spacing: 1),
+        GridItem(.fixed(200), spacing: 8),
+        GridItem(.fixed(200), spacing: 8),
     ]
     
+    
     var body: some View {
-        
-        ZStack{
-            VStack{
-                NavigationStack{
-                    ScrollView {
-                        
-                        LazyVGrid(columns: columns,spacing: 20) {
-                            ForEach(charactersViewModel.characters) { character in
-                                NavigationLink (
-                                    destination: CreateCharachterView(addCharacter: addCharacter) ) {
-                                    CharacterCardView(
-                                        characterName: character.name,
-                                        iconString: character.icon
-                                    )
-                                }
+        ZStack {
+            NavigationStack {
+                ScrollView {
+                    LazyVGrid(columns: columns) {
+                        ForEach(listCharacters) { character in
+                            NavigationLink(
+                                destination: DetailCharacterView(character: character)
+                            ) {
+                                CharacterCardView(
+                                    characterName: character.name,
+                                    iconString: character.icon
+                                )
                             }
-                            .onDelete(perform: deleteItems)
-                            
                         }
-                        
-                    }.navigationTitle(Text("Character List"))
-                    .toolbar {
-                        ToolbarItem(placement: .navigationBarTrailing) {
-                            NavigationLink(destination: CreateCharachterView(addCharacter: addCharacter)) {
-                                ButtonView(action: addItem,icon: "plus")
+                        .onDelete { indexes in
+                            for index in indexes {
+                                deleteCharacter(characterToDelete: listCharacters[index])
                             }
                         }
                     }
                     
                 }
-                    
+                .navigationViewStyle(StackNavigationViewStyle())
+                .navigationTitle(Text("Character List"))
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        NavigationLink(destination: CreateCharachterView(addCharacter: addCharacter)) {
+                            Label("", systemImage: "plus")
+                        }
+                    }
+                }
             }
             
+            
         }
-        
-      
-        
-
-        
     }
 
     private func addCharacter( newCharacter : CharacterModel ) -> Void{
         withAnimation {
-            modelContext.insert(newCharacter)
+            context.insert(newCharacter)
         }
     }
-    private func addItem() {
+   
+    private func deleteCharacter(characterToDelete: CharacterModel) -> Void {
         withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
+            context.delete(characterToDelete)
         }
     }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
-            }
-        }
-    }
+    
 }
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+        .modelContainer(for: CharacterModel.self, inMemory: true)
 }

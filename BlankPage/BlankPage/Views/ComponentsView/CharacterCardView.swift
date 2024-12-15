@@ -15,33 +15,87 @@ struct CharacterCardView: View {
     var iconString : String = "🚀"
     
     var body: some View {
-        VStack( spacing : 10) {
-            if let image = iconString.emojiToImage() {
-                            Image(uiImage: image)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 100, height: 100)
+        VStack{
+            ZStack{
+                VStack(alignment: .leading, spacing: 10) { // Allinea il contenuto a sinistra
+                    Spacer() // Spinge tutto verso il basso
+                    
+                    Text(characterName)
+                        .font(.title2)
+                        .fontWeight(.heavy)
+                        .foregroundColor(.white)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
+                        .frame(width: 150, alignment: .leading) // Allinea a sinistra
+                    
+                    HStack {
+                        HStack {
+                            Text("Age")
+                                .font(.subheadline)
+                                .foregroundColor(.white)
+                            Text("23")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
                         }
-            Divider()
-                .padding(.horizontal)
-            Text(characterName)
-                .font(.title3)
-                .fontWeight(.heavy)
-                .foregroundColor(Color.black)
-                .lineLimit(1)
-                .minimumScaleFactor(0.5)
-                .frame(width: 150)
-           
-            
-            
-        }
-        .padding()
-        .background(.background)
-        .cornerRadius(20)
-        .shadow(color: .gray.opacity(0.5), radius: 10)
-        .padding(.horizontal, 20)
+                        Spacer() // Spinge il contenuto verso sinistra
+                    }
+                }
+                .frame(maxHeight: .infinity, alignment: .bottomLeading) // Allinea l'intero VStack in basso a sinistra
+                .padding()
+
+                .frame(width: 170,height: 150)
+                .background(Color("AccentColor"))
+                .cornerRadius(20)
+                .shadow(color: Color("AccentColor").opacity(0.8), radius: 6)
+                
+                VStack{
+                    if let image = iconString.emojiToImage() {
+                        Image(uiImage: image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 150)
+                    }
+                    
+                    Spacer().frame(height: 160)
+                }
+                
+                
+            }
+        }.frame(width: 200)
+        
+        
+        
     }
     
+//    var body: some View {
+//        VStack( spacing : 10) {
+//            if let image = iconString.emojiToImage() {
+//                Image(uiImage: image)
+//                    .resizable()
+//                    .aspectRatio(contentMode: .fit)
+//                    .frame(width: 100, height: 100)
+//            }
+//            Divider()
+//                .padding(.horizontal)
+//            Text(characterName)
+//                .font(.title3)
+//                .fontWeight(.heavy)
+//                .foregroundColor(Color.black)
+//                .lineLimit(1)
+//                .minimumScaleFactor(0.5)
+//                .frame(width: 150)
+//            
+//        }
+//        .padding()
+//        .background(.background)
+//        .cornerRadius(20)
+//        .shadow(color: .gray.opacity(0.5), radius: 10)
+//        .padding(.horizontal, 20)
+//        
+//        
+//        
+//    }
          
 }
 

@@ -7,19 +7,24 @@
 
 import SwiftUI
 
-struct ButtonView: View {
+struct ButtonView<T>: View {
     
-    var action: () -> Void = { }
+    var text : String = "Button"
+    
+    var action: (T?) -> Void = { _ in }
+    var parameter: T? = nil
+    
     var icon :String  = "plus"
-    var text : String = ""
     
     var body: some View {
-        Button(action: action) {
+       
+        
+        Button(action: { action(parameter) }) {
             Label(text, systemImage: icon)
         }
     }
 }
 
 #Preview {
-    ButtonView()
+    ButtonView<Any>()
 }

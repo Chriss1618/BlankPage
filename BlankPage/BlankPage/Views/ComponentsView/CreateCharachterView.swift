@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct CreateCharachterView: View {
+    
+    @Environment(\.presentationMode) var presentationMode
+    
     @State private var isExpandedBasicInfo: Bool = false
     @State private var isExpandedDetails: Bool = false
     
@@ -64,7 +67,8 @@ struct CreateCharachterView: View {
                     
                 }.padding()
                 RoundedButton<Any>( text: "Create Character"){ _ in
-                        createCharacter()
+                    print("pressed Add Character")
+                    createCharacter()
                 }
                
             }
@@ -76,6 +80,8 @@ struct CreateCharachterView: View {
     func createCharacter(){
         self.character = CharacterModel(name : name, age: age, description: descriptionCharacter, icon: selectedEmoticon, particularSigns: particularSigns)
         addCharacter(character!)
+        presentationMode.wrappedValue.dismiss()
+
     }
     
     var iconEmoji : some View {
