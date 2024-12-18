@@ -17,7 +17,7 @@ struct DetailCharacterView: View {
     
     var iconEmoji : some View {
         VStack{
-            CardProfileView()
+            CardProfileView(Character: character)
         }
         
         

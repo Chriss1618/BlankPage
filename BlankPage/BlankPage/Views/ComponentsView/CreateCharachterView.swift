@@ -26,7 +26,7 @@ struct CreateCharachterView: View {
     
     @State private var age = 9
 
-    private let emoticons = ["😀", "😂", "🥳", "😎", "🤔", "❤️", "🔥"]
+    private let emoticons = ["😀","🧙🏽‍♂️","😎", "🔥","👨🏻‍🎤","🧑🏼‍🚀","🦹🏽","🧚🏻","🧛🏻","🤴🏾","👸🏾","🧝🏽‍♂️ ","👱🏼","👩🏽"]
 
     
     @State private var isShowingPicker: Bool = false
@@ -93,7 +93,7 @@ struct CreateCharachterView: View {
                 .foregroundStyle( Color.accentColor )
                 .overlay(
                     Text(selectedEmoticon)
-                        .font(.largeTitle)
+                        .font(.system(size: 70))
                 )
         }
         .padding()

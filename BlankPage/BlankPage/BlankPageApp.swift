@@ -11,10 +11,11 @@ import SwiftData
 @main
 struct BlankPageApp: App {
 
-    var sharedModelContainer: ModelContainer = {
+    var sharedModelContainer : ModelContainer = {
         let schema = Schema([
             CharacterModel.self,
         ])
+        
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
         do {
@@ -22,6 +23,7 @@ struct BlankPageApp: App {
         } catch {
             fatalError("Could not create ModelContainer: \(error)")
         }
+        
     }()
 
     var body: some Scene {

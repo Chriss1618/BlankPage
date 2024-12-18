@@ -42,5 +42,5 @@ struct EmoticonPicker: View {
 #Preview {
     @Previewable @State var selectedEmoticon: String = "😎"
     
-    EmoticonPicker(emoticons:["😀", "😂", "🥳", "😎", "🤔", "❤️", "🔥"] , selectedEmoticon: $selectedEmoticon)
+    EmoticonPicker(emoticons:["😀","🧙🏽‍♂️","😎", "🔥","👨🏻‍🎤","🧑🏼‍🚀","🦹🏽","🧚🏻","🧛🏻","🤴🏾","👸🏾","🧝🏽‍♂️ ","👱🏼","👩🏽"] , selectedEmoticon: $selectedEmoticon)
 }

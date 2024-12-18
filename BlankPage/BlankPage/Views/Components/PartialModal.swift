@@ -12,7 +12,6 @@ struct PartialModalView: View {
     @State private var fullHeight: CGFloat = UIScreen.main.bounds.height * 0.8
 
     var body: some View {
-            // Modale parziale
             GeometryReader { geometry in
                 VStack {
                     Capsule()

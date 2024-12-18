@@ -9,13 +9,14 @@ import SwiftUI
 
 struct CardProfileView: View {
     
+    var Character : CharacterModel
     var colorText : Color = .white
     var colorCard : Color = Color.accentColor
     
+    
     var body: some View {
-        
+
         ZStack {
-            
             
             VStack{
                 Spacer().frame(height: 210)
@@ -31,22 +32,24 @@ struct CardProfileView: View {
                     
                     VStack{
                         Spacer().frame(height: 20)
-                        Text("Cristofor Doamre")
+                        Text( Character.name )
                             .font(.title)
                             .fontWeight(.bold)
                             .foregroundColor(colorText)
+                            .accessibilityLabel( Character.name )
                         HStack{
                             Text("Age")
                                 .font(.subheadline)
                                 .foregroundColor(colorText)
-                            Text("23")
+                            Text(String(Character.age))
                                 .font(.title2)
                                 .fontWeight(.bold)
                                 .foregroundColor(colorText)
+                                .accessibilityLabel( "Age " + String(Character.age) )
                         }
                         
                         Divider()
-                            .frame( width: 150, height: 1.5) // Spessore della linea
+                            .frame( width: 150, height: 1.5)
                             .background(colorText)
                         Spacer().frame(height: 15)
                         
@@ -54,11 +57,11 @@ struct CardProfileView: View {
                             .font(.headline)
                             .fontWeight(.heavy)
                             .foregroundColor(colorText)
-                        Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
+                        Text( Character.descriptionCharacter )
                             .font(.subheadline)
                             .foregroundColor(colorText)
                             .multilineTextAlignment(.center)
-                        
+                            .accessibilityLabel( "Description " + Character.descriptionCharacter )
                         Spacer()
                     }.padding(16)
                 }
@@ -71,7 +74,7 @@ struct CardProfileView: View {
                 ZStack{
                     
                     //Circle().frame(width: 250).foregroundStyle(Color("SecondaryColor"))
-                    if let image = "🧙🏽‍♂️".emojiToImage() {
+                    if let image = Character.icon.emojiToImage() {
                         Image(uiImage: image)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -88,5 +91,6 @@ struct CardProfileView: View {
 }
 
 #Preview {
-    CardProfileView()
+    CardProfileView( Character: CharacterModel(name: "Name", age:  0, description:  "", icon:  "🧙🏽‍♂️", particularSigns: ""))
 }
+

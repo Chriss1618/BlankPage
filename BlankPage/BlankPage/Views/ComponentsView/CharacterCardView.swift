@@ -10,9 +10,7 @@ import UIKit
 
 struct CharacterCardView: View {
     
-    
-    var characterName : String = "Marco Cioni"
-    var iconString : String = "🚀"
+    var Character : CharacterModel
     
     var body: some View {
         VStack{
@@ -20,7 +18,7 @@ struct CharacterCardView: View {
                 VStack(alignment: .leading, spacing: 10) { // Allinea il contenuto a sinistra
                     Spacer() // Spinge tutto verso il basso
                     
-                    Text(characterName)
+                    Text(Character.name)
                         .font(.title2)
                         .fontWeight(.heavy)
                         .foregroundColor(.white)
@@ -33,7 +31,7 @@ struct CharacterCardView: View {
                             Text("Age")
                                 .font(.subheadline)
                                 .foregroundColor(.white)
-                            Text("23")
+                            Text(String(Character.age))
                                 .font(.title2)
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
@@ -50,11 +48,13 @@ struct CharacterCardView: View {
                 .shadow(color: Color("AccentColor").opacity(0.8), radius: 6)
                 
                 VStack{
-                    if let image = iconString.emojiToImage() {
+                    if let image = Character.icon.emojiToImage() {
                         Image(uiImage: image)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: 150)
+                            .frame(width: 120)
+                            
+                            
                     }
                     
                     Spacer().frame(height: 160)
@@ -118,5 +118,5 @@ extension String {
         }
 }
 #Preview {
-    CharacterCardView()
+    CharacterCardView(Character: CharacterModel(name:"Chris", icon: "🧙🏽‍♂️" ))
 }
